@@ -6,7 +6,7 @@ public class Main {
         Population initialPopulation = new Population();
         Random rng = new Random();
         int counter = 0;
-        for(int k = 0; k < 5; k++) {
+        for(int k = 0; k < 50; k++) {
             for(int i = 0; i <50; i++) {
                 Individual individual = new Individual();
                 for(int j = 0; j < individual.size(); j++) {
@@ -22,7 +22,7 @@ public class Main {
             //System.out.println(indivForSA.toString());
 
             Solver solver = new Solver();
-            Individual test = solver.simulatedAnnealing(indivForSA,2000,0.99999);
+            Individual test = solver.simulatedAnnealing(indivForSA,1,0.999);
             if(test != null) {
                 counter++;
             }

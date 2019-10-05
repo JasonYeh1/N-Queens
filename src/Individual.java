@@ -55,7 +55,7 @@ public class Individual {
         for(int i = 0; i < state.length-1; i++) {
             for(int j = i+1; j < state.length; j++) {
                 if(i != j) {
-                    if((state[i] == state[j]) || (Math.abs((state[i]+1) - (i+1)) == Math.abs((state[j]+1) - (j+1)) || (state[i] + i == state[j] + j))) {
+                    if((state[i] == state[j]) || (j - i == Math.abs(state[j] - state[i]))) {
                         conflicts++;
                     }
                 }

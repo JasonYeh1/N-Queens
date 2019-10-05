@@ -12,7 +12,7 @@ public class Solver {
         double T = temp;
 
         while(true) {
-            if(T < .001) {
+            if(T < .01) {
                 System.out.println("T has reached 0");
                 return null;
             }
