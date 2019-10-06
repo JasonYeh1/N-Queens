@@ -4,12 +4,12 @@ public class Main {
     public static long saTime = 0;
     public static long gTime = 0 ;
     public static void main(String args[]) {
-        final double TEST = 500;
+        final double numberOfRuns = 500;
         Population initialPopulation = new Population();
         Random rng = new Random();
         int saCounter = 0;
         int gCounter = 0;
-        for(int k = 0; k < TEST; k++) {
+        for(int k = 0; k < numberOfRuns; k++) {
             for(int i = 0; i <50; i++) {
                 Individual individual = new Individual();
                 for(int j = 0; j < individual.size(); j++) {
@@ -46,9 +46,9 @@ public class Main {
         }
         System.out.println("");
         System.out.println("Simulated Annealing Time: " + saTime*.001 + "s");
-        System.out.println("Simulated Annealing Solution Rate: " + saCounter/TEST);
+        System.out.println("Simulated Annealing Solution Rate: " + saCounter/numberOfRuns);
         System.out.println("");
         System.out.println("Genetic Algorithm Time: " + gTime*.001 + "s");
-        System.out.println("Genetic Algorithm Solution Rate: " + gCounter/TEST);
+        System.out.println("Genetic Algorithm Solution Rate: " + gCounter/numberOfRuns);
     }
 }
