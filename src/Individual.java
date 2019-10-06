@@ -3,7 +3,7 @@ public class Individual {
     private int fitnessValue;
 
     public Individual() {
-        state = new int[8];
+        state = new int[25];
     }
 
     public Individual(int[] state) {
@@ -42,14 +42,17 @@ public class Individual {
 
     @Override
     public String toString() {
-        String result = ":";
-        for(int i:state) {
-            result += i+":";
+        String result = "(";
+        for(int i = 0; i < state.length; i++) {
+            result += state[i];
+            if(i != state.length-1) {
+                result += ", ";
+            }
         }
+        result += ")";
         return result;
     }
 
-    //TODO negative sloped diagonals are not being counted
     public int findFitness() {
         int conflicts = 0;
         for(int i = 0; i < state.length-1; i++) {
@@ -62,5 +65,14 @@ public class Individual {
             }
         }
         return conflicts;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Individual i = (Individual) obj;
+        if(!(obj instanceof Individual)) {
+            return false;
+        }
+        return this.toString().equals(i.toString());
     }
 }
