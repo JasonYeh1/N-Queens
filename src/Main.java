@@ -4,12 +4,12 @@ public class Main {
     public static long saTime = 0;
     public static long gTime = 0 ;
     public static void main(String args[]) {
-        final double numberOfRuns = 500;
-        Population initialPopulation = new Population();
+        final double numberOfRuns = 5;
         Random rng = new Random();
         int saCounter = 0;
         int gCounter = 0;
         for(int k = 0; k < numberOfRuns; k++) {
+            Population initialPopulation = new Population();
             for(int i = 0; i <50; i++) {
                 Individual individual = new Individual();
                 for(int j = 0; j < individual.size(); j++) {
@@ -17,9 +17,10 @@ public class Main {
                     individual.add(j,rowPos);
                 }
                 individual.setFitnessValue(individual.findFitness());
-                //System.out.println(individual.toString() + " Fitness: " + individual.getFitnessValue());
+                System.out.println(individual.toString() + " Fitness: " + individual.getFitnessValue());
                 initialPopulation.add(individual);
             }
+            //System.out.println("--------------------------------------------------------------------------------------------------");
             Individual indivForSA = initialPopulation.getIndividual(0);
 
             Solver solver = new Solver();

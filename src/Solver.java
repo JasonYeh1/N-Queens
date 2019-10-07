@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
@@ -75,28 +76,30 @@ public class Solver {
 
     public Individual geneticAlgorithm(Population initialPopulation) {
         Population population = initialPopulation;
-        double mutationRate = .99;
-        int counter = 0;
+        Population newPopulation = new Population();
+        double mutationRate = .9;
         while(true) {
             Individual parent1 = selectParent(population);
             Individual parent2 = selectParent(population);
             Individual[] children = mate(parent1, parent2);
 
             for(Individual i: children) {
-//                System.out.println("CHILD:        " + i.toString());
+                System.out.println("CHILD:        " + i.toString() + " Fitness: " + i.getFitnessValue());
+
+                tryToMutate(i, mutationRate);
                 if(i.getFitnessValue() == 0) {
                     return i;
                 }
-                tryToMutate(i, mutationRate);
+                newPopulation.add(i);
+                System.out.println("ADDED INTO NEW POPULATION");
 
-                if(!population.contains(i)) {
-                    population.add(i);
-//                    System.out.println("ADDED INTO POPULATION");
-                }
             }
-            population.prune();
-//            System.out.println("Population Size: " + population.size());
-            counter++;
+            if(newPopulation.size() == 50) {
+                population.setPopulation(newPopulation);
+                newPopulation.clear();
+                System.out.println("Switched to new pop");
+            }
+            System.out.println("Population Size: " + population.size());
         }
     }
 
@@ -120,29 +123,29 @@ public class Solver {
             }
         }
 
-        //System.out.println(min.toString() + " Fitness: " + min.getFitnessValue());
+        System.out.println(min.toString() + " Fitness: " + min.getFitnessValue());
         return min;
     }
 
     private static Individual[] mate(Individual x, Individual y) {
-//        System.out.println("");
-//        System.out.println("Parent1:  " + x.toString() + " Fitness: " + x.getFitnessValue());
-//        System.out.println("Parent2:  " + y.toString() + " Fitness: " + y.getFitnessValue());
+        System.out.println("");
+        System.out.println("Parent1:  " + x.toString() + " Fitness: " + x.getFitnessValue());
+        System.out.println("Parent2:  " + y.toString() + " Fitness: " + y.getFitnessValue());
         int[] child1 = x.getState().clone();
         int[] child2 = y.getState().clone();
         int[] temp = new int[25];
         int crossOver = (int) ((Math.random() * 24) + 1);
-//        System.out.println("Crossover: " + crossOver);
+        System.out.println("Crossover: " + crossOver);
 
 
         System.arraycopy(child1,0, temp,0,crossOver);
         System.arraycopy(child2, 0, child1, 0, crossOver);
         System.arraycopy(temp, 0, child2, 0,crossOver);
 
-//        x.setState(child1);
-//        x.setFitnessValue(x.findFitness());
-//        y.setState(child2);
-//        y.setFitnessValue(y.getFitnessValue());
+        x.setState(child1);
+        x.setFitnessValue(x.findFitness());
+        y.setState(child2);
+        y.setFitnessValue(y.getFitnessValue());
 
         Individual one = new Individual(child1);
         Individual two = new Individual(child2);
@@ -152,8 +155,9 @@ public class Solver {
     private void tryToMutate(Individual individual, double mutationRate) {
         int[] state = individual.getState();
         if(Math.random() < mutationRate) {
-            state[(int)(Math.random()*25)] = (int)(Math.random()*25)+1;
-//            System.out.println("Mutation hit: " + individual.toString());
+            state[(int)(Math.random()*25)] = (int)(Math.random()*25);
+            individual.setFitnessValue(individual.findFitness());
+            System.out.println("Mutation hit: " + individual.toString() + " Fitnesss: " + individual.getFitnessValue());
         }
     }
 
