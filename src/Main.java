@@ -4,10 +4,12 @@ public class Main {
     public static long saTime = 0;
     public static long gTime = 0 ;
     public static void main(String args[]) {
-        final double numberOfRuns = 5;
+        final double numberOfRuns = 500;
         Random rng = new Random();
         int saCounter = 0;
         int gCounter = 0;
+        System.out.println("Number of Runs: " + numberOfRuns);
+        System.out.println("");
         for(int k = 0; k < numberOfRuns; k++) {
             Population initialPopulation = new Population();
             for(int i = 0; i <50; i++) {
@@ -17,7 +19,7 @@ public class Main {
                     individual.add(j,rowPos);
                 }
                 individual.setFitnessValue(individual.findFitness());
-                System.out.println(individual.toString() + " Fitness: " + individual.getFitnessValue());
+//                System.out.println(individual.toString() + " Fitness: " + individual.getFitnessValue());
                 initialPopulation.add(individual);
             }
             //System.out.println("--------------------------------------------------------------------------------------------------");
@@ -37,7 +39,7 @@ public class Main {
             Individual solution2 = solver.geneticAlgorithm(initialPopulation);
             if(solution2 != null) {
                 gCounter++;
-                System.out.println("Genetic solution: " + solution2.toString());
+                System.out.println("Genetic solution:-------------" + solution2.toString());
             }
 
             long gEndTime = System.currentTimeMillis();
@@ -46,10 +48,10 @@ public class Main {
 
         }
         System.out.println("");
-        System.out.println("Simulated Annealing Time: " + saTime*.001 + "s");
+        System.out.println("Simulated Annealing Total Time: " + saTime*.001 + "s");
         System.out.println("Simulated Annealing Solution Rate: " + saCounter/numberOfRuns);
         System.out.println("");
-        System.out.println("Genetic Algorithm Time: " + gTime*.001 + "s");
+        System.out.println("Genetic Algorithm Total Time: " + gTime*.001 + "s");
         System.out.println("Genetic Algorithm Solution Rate: " + gCounter/numberOfRuns);
     }
 }
