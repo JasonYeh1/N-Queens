@@ -1,8 +1,12 @@
 import java.util.Random;
 
+/**
+ * Main class consisting of entry point into the program, the number of runs can be adjusted with the numberOfRuns value
+ */
 public class Main {
-    public static long saTime = 0;
-    public static long gTime = 0 ;
+    //Global variables to keep track of the run times for both Simulated Annealing and Genetic
+    private static long saTime = 0;
+    private static long gTime = 0 ;
     public static void main(String args[]) {
         final double numberOfRuns = 500;
         Random rng = new Random();
@@ -10,10 +14,14 @@ public class Main {
         int gCounter = 0;
         System.out.println("Number of Runs: " + numberOfRuns);
         System.out.println("");
+
+        //For the numberOfRuns stated above, create that many Populations
         for(int k = 0; k < numberOfRuns; k++) {
             Population initialPopulation = new Population();
+            //Create 50 random Individuals to populate the Population
             for(int i = 0; i <50; i++) {
                 Individual individual = new Individual();
+                //For each queen, select a random row position for it
                 for(int j = 0; j < individual.size(); j++) {
                     int rowPos = rng.nextInt(25);
                     individual.add(j,rowPos);
